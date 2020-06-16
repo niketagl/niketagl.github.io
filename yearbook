@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Surprise!!</title>
+		<!-- link to main stylesheet -->
+		<link rel="stylesheet" type="text/css" href="/css/main.css">
+	</head>
+	<body>
+		<h2>Here's a little thing I made for you!</h2>
+        <form action="/action_page.php">
+          <label for="fname">Enter Password to proceed: (Your password is the first five capital letters of the memoir I wrote for you!)</label><br>
+          <input type="text" id="fname" name="fname"><br>
+          <input type="submit" value="Submit">
+        </form>  
+	</body>
+</html>

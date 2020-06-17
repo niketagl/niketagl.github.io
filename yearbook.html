@@ -1,16 +1,49 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>  
 <html>
-	<head>
-		<title>Surprise!!</title>
-		<!-- link to main stylesheet -->
-		<link rel="stylesheet" type="text/css" href="/css/main.css">
-	</head>
-	<body>
-		<h2>Here's a little thing I made for you!</h2>
-        <form action="/action_page.php">
-          <label for="fname">Enter Password to proceed: (Your password is the first five capital letters of the memoir I wrote for you!)</label><br>
-          <input type="text" id="fname" name="fname"><br>
-          <input type="submit" value="Submit">
-        </form>  
-	</body>
+<head>
+<style>
+.error {color: #FF0000;}
+</style>
+</head>
+<body>  
+
+<?php
+$passErr = "";
+$pass = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (empty($_POST["pass"])) {
+    $passErr = "Password is required";
+  } else {
+    $pass = test_input($_POST["pass"]);
+    // check if name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z ]*$/",$pass)) {
+      $passErr = "Only letters and white space allowed";
+    }
+  }
+}
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+?>
+
+<h2>Here's a little thing I made for you!!</h2>
+<p><span class="error">* required field</span></p>
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
+  Enter Password to proceed: (Your password is the first five capital letters of the memoir I wrote for you!) <input type="text" name="pass" value="<?php echo $pass;?>">
+  <span class="error">* <?php echo $passErr;?></span>
+  <br><br>
+  <input type="submit" name="submit" value="Submit">  
+</form>
+
+<?php
+echo "<h2>Your link will be displayed here:</h2>";
+echo $name;
+?>
+
+</body>
 </html>

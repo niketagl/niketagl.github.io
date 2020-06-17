@@ -10,6 +10,7 @@
 <?php
 $passErr = "";
 $pass = "";
+$link = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["pass"])) {
@@ -17,8 +18,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {
     $pass = test_input($_POST["pass"]);
     // check if name only contains letters and whitespace
-    if (!preg_match("/^[a-zA-Z ]*$/",$pass)) {
-      $passErr = "Only letters and white space allowed";
+    if (!preg_match("/^[A-Z]*$/",$pass)) {
+      $passErr = "Only capital allowed";
+    }
+    else {
+      $link = gen_link($pass);
     }
   }
 }
@@ -29,6 +33,12 @@ function test_input($data) {
   $data = htmlspecialchars($data);
   return $data;
 }
+
+function gen_link($data) {
+  if($data == "ABCDE") return "niketagl.github.io"
+  return "Invalid Password"
+}
+
 ?>
 
 <h2>Here's a little thing I made for you!!</h2>
@@ -41,6 +51,7 @@ function test_input($data) {
 </form>
 
 <?php
+echo "<br>";
 echo "<h2>Your link will be displayed here:</h2>";
 echo $name;
 ?>
